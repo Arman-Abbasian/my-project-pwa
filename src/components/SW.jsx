@@ -25,6 +25,7 @@ function SW() {
       return false;
     });
   }, []);
+
   //this handler triggered when the user click on install logo on app
   const handleShowInstallPrompt = () => {
     console.log({ deferredPrompt });
@@ -45,9 +46,21 @@ function SW() {
       setDeferredPrompt(null);
     }
   };
+  //this handler triggered when the user click on notification logo on app
+  const handleShowNotifPermission = () => {
+    Notification.requestPermission((res) => {
+      if (res == "granted") {
+        setShowNotif(false);
+      } else {
+        setShowNotif(false);
+      }
+    });
+  };
   return (
     <div>
-      {showNotif && <p>notification??????????</p>}
+      {showNotif && (
+        <p onClick={handleShowNotifPermission}>notification??????????</p>
+      )}
       {showInstallReq && (
         <p onClick={handleShowInstallPrompt}>install???????????????</p>
       )}
