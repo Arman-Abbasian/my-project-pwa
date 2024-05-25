@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 
 function SW() {
   const [showNotif, setShowNotif] = useState(false);
-  const [showInstallReq, setShowInstallReq] = useState(false);
+  const [showInstallReq, setShowInstallReq] = useState(
+    JSON.parse(localStorage.getItem("installCondition") ? false : true)
+  );
   const [deferredPrompt, setDeferredPrompt] = useState(null);
 
   useEffect(() => {
     // installation-------------
-    if (!localStorage.getItem("installMyProjectApp")) {
+    if (!localStorage.getItem("installCondition")) {
       setShowInstallReq(true);
     }
 
@@ -32,6 +34,7 @@ function SW() {
       setShowInstallReq(false);
       //this method consider if the button that user clicked is 'ok' or 'cancel'
       deferredPrompt.userChoice.then((choiceRes) => {
+        localStorage.setItem("installCondition", JSON.parse(true));
         console.log(choiceRes.outcome);
         if (choiceRes.outcome === "accepted") {
           console.log("User accepted the install prompt.");
@@ -39,7 +42,7 @@ function SW() {
           console.log("User dismissed the install prompt");
         }
       });
-      deferredPrompt = null;
+      setDeferredPrompt(null);
     }
   };
   return (
