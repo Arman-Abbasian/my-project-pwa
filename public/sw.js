@@ -33,42 +33,42 @@ self.addEventListener("activate", function (e) {
 });
 
 // fetch event -------------------------------------->>
-self.addEventListener("fetch", function (e) {
-  console.log("fetch......");
-  if (
-    e.request.url.indexOf("https://jsonplaceholder.typicode.com/users") > -1
-  ) {
-    e.respondWith(
-      caches.open(DYNAMIC_CACHE).then((cache) => {
-        return fetch(e.request).then((response) => {
-          trimCache(DYNAMIC_CACHE, 50);
-          cache.put(e.request, response.clone());
-          return response;
-        });
-      })
-    );
-  } else {
-    e.respondWith(
-      caches.match(e.request).then((res) => {
-        return (
-          res ||
-          fetch(e.request)
-            .then((fetchRes) => {
-              return caches.open(DYNAMIC_CACHE).then((cache) => {
-                trimCache(DYNAMIC_CACHE, 50);
-                cache.put(e.request, fetchRes.clone());
-                return fetchRes;
-              });
-            })
-            .catch((err) => {
-              return caches.open(STATIC_CACHE).then((cache) => {
-                if (e.request.headers.get("accept").includes("text/html")) {
-                  return cache.match("/offline.html");
-                }
-              });
-            })
-        );
-      })
-    );
-  }
-});
+// self.addEventListener("fetch", function (e) {
+//   console.log("fetch......");
+//   if (
+//     e.request.url.indexOf("https://jsonplaceholder.typicode.com/users") > -1
+//   ) {
+//     e.respondWith(
+//       caches.open(DYNAMIC_CACHE).then((cache) => {
+//         return fetch(e.request).then((response) => {
+//           trimCache(DYNAMIC_CACHE, 50);
+//           cache.put(e.request, response.clone());
+//           return response;
+//         });
+//       })
+//     );
+//   } else {
+//   e.respondWith(
+//     caches.match(e.request).then((res) => {
+//       return (
+//         res ||
+//         fetch(e.request)
+//           .then((fetchRes) => {
+//             return caches.open(DYNAMIC_CACHE).then((cache) => {
+//               trimCache(DYNAMIC_CACHE, 50);
+//               cache.put(e.request, fetchRes.clone());
+//               return fetchRes;
+//             });
+//           })
+//           .catch((err) => {
+//             return caches.open(STATIC_CACHE).then((cache) => {
+//               if (e.request.headers.get("accept").includes("text/html")) {
+//                 return cache.match("/offline.html");
+//               }
+//             });
+//           })
+//       );
+//     })
+//   );
+// }
+// });
