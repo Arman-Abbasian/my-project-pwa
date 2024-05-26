@@ -8,6 +8,11 @@ function SW() {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
 
   useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sw.js").then((res) => {
+        console.log("registered...");
+      });
+    }
     // installation-------------
     if (!localStorage.getItem("installCondition")) {
       setShowInstallReq(true);
