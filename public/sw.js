@@ -1,22 +1,8 @@
-let staticItems = [
-  "/",
-  "/index.html",
-  "/offline.html",
-  "/assets/materialize/css/materialize.min.css",
-  "/assets/css/util.css",
-  "https://fonts.googleapis.com/icon?family=Material+Icons",
-  "/assets/css/style.css",
-  "/assets/js/idb.js",
-  "/assets/js/idbUtils.js",
-  "/assets/js/alpineJsContollers/usersController.js",
-  "/assets/materialize/js/materialize.min.js",
-  "/assets/js/app.js",
-  "https://fonts.gstatic.com/s/materialicons/v140/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2",
-];
+let staticItems = ["/", "/index.html", "/offline.html"];
 
 //when we change the name that means we have a new version
-let STATIC_CACHE = "static-v2";
-let DYNAMIC_CACHE = "dynamic";
+let STATIC_CACHE = "static-v1";
+let DYNAMIC_CACHE = "dynamic-v1";
 
 // install event -------------------------------------->>
 self.addEventListener("install", function (e) {
