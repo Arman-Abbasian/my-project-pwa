@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import SW from "./components/SW";
+import Home from "../src/pages/Home";
 
 function App() {
   const [networkStatus, setnetworkStatus] = useState(1);
@@ -18,6 +19,7 @@ function App() {
   return (
     <div className="App">
       <SW />
+      <Home />
     </div>
   );
 }
