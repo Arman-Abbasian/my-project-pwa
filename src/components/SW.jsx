@@ -6,7 +6,7 @@ function SW() {
     JSON.parse(localStorage.getItem("installCondition") ? false : true)
   );
   const [deferredPrompt, setDeferredPrompt] = useState(null);
-
+  console.log({ deferredPrompt });
   useEffect(() => {
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("/sw.js").then((res) => {
@@ -24,10 +24,10 @@ function SW() {
     }
     //this handler triggered when the website content loaded
     window.addEventListener("beforeinstallprompt", (e) => {
+      console.log({ e });
       e.preventDefault();
       //locate the 'e' values in defferd prompt(deferredPrompt is a glabal variable=>we need the 'e' in othe function)
       setDeferredPrompt(e);
-      return false;
     });
   }, []);
 
