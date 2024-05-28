@@ -6,7 +6,7 @@ function SW() {
     JSON.parse(localStorage.getItem("installCondition") ? false : true)
   );
   const [deferredPrompt, setDeferredPrompt] = useState(null);
-  console.log({ deferredPrompt });
+
   useEffect(() => {
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("/sw.js").then((res) => {

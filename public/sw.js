@@ -1,4 +1,11 @@
-let staticItems = ["/", "/index.html", "/offline.html"];
+let staticItems = [
+  "/",
+  "/index.html",
+  "/manifest.json",
+  "/images/landing-page.jpg",
+  "/images/icons/original/icon-144.png",
+  "/static/js/bundle.js",
+];
 
 //when we change the name that means we have a new version
 let STATIC_CACHE = "static-v1";
