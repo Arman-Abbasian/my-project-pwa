@@ -8,6 +8,7 @@ function SW() {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
 
   useEffect(() => {
+    //if this brwoser(that we see the app), support the service worker
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("/sw.js").then((res) => {
         console.log("registered...");

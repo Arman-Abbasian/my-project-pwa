@@ -40,42 +40,23 @@ self.addEventListener("activate", function (e) {
 });
 
 // fetch event -------------------------------------->>
-// self.addEventListener("fetch", function (e) {
-//   console.log("fetch......");
-//   if (
-//     e.request.url.indexOf("https://jsonplaceholder.typicode.com/users") > -1
-//   ) {
-//     e.respondWith(
-//       caches.open(DYNAMIC_CACHE).then((cache) => {
-//         return fetch(e.request).then((response) => {
-//           trimCache(DYNAMIC_CACHE, 50);
-//           cache.put(e.request, response.clone());
-//           return response;
-//         });
-//       })
-//     );
-//   } else {
-//   e.respondWith(
-//     caches.match(e.request).then((res) => {
-//       return (
-//         res ||
-//         fetch(e.request)
-//           .then((fetchRes) => {
-//             return caches.open(DYNAMIC_CACHE).then((cache) => {
-//               trimCache(DYNAMIC_CACHE, 50);
-//               cache.put(e.request, fetchRes.clone());
-//               return fetchRes;
-//             });
-//           })
-//           .catch((err) => {
-//             return caches.open(STATIC_CACHE).then((cache) => {
-//               if (e.request.headers.get("accept").includes("text/html")) {
-//                 return cache.match("/offline.html");
-//               }
-//             });
-//           })
-//       );
-//     })
-//   );
-// }
-// });
+self.addEventListener("fetch", async (event) => {
+  event.respondWith(
+    caches.open(STATIC_CACHE).then(async (cache) => {
+      const cachedResponse = await cache.match(event.request);
+      if (cachedResponse) {
+        // Serve cached image if available
+        return cachedResponse;
+      }
+      // Fetch from network and cache the response
+      try {
+        const networkResponse = await fetch(event.request);
+        cache.put(event.request, networkResponse.clone());
+        return networkResponse;
+      } catch (error) {
+        // Network request failed, serve cached image
+        return caches.match("/offline-image.jpg"); // Replace with your offline image
+      }
+    })
+  );
+});
