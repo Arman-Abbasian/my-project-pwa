@@ -45,7 +45,6 @@ self.addEventListener("fetch", async (event) => {
     caches.open(STATIC_CACHE).then(async (cache) => {
       const cachedResponse = await cache.match(event.request);
       if (cachedResponse) {
-        // Serve cached image if available
         return cachedResponse;
       }
       // Fetch from network and cache the response
